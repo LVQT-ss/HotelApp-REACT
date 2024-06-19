@@ -1,3 +1,4 @@
+import { Result } from "antd";
 import axios from "axios";
 
 export const api = axios.create({
@@ -19,7 +20,7 @@ export async function addRoom(photo,roomType,roomPrice){
     }
 
 }
-// this function gets all room 
+// this function gets all room types
 export async function getRoomTypes(){
     try {
         const response = await api.get("/rooms/room/types")
@@ -27,5 +28,14 @@ export async function getRoomTypes(){
     }catch(error){
         throw new Error("Error fetching room types ")
 
+    }
+}
+// This function gets all room 
+export async function getAllRooms(){
+    try{
+        const result = await api.get("/rooms/all-rooms")
+        return result.data
+    }catch(error){
+        throw new Error("Error fetching all rooms")
     }
 }
