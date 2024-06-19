@@ -1,5 +1,7 @@
-import React from "react";
-import addRoom from "../Utils/ApiFunction";
+import React, { useState } from "react";
+import { addRoom } from "../Utils/ApiFunctions";
+import RoomTypeSelector from "../common/RoomTypeSelector";
+
 const AddRoom = () => {
   const [newRoom, setNewRoom] = useState({
     photo: null,
@@ -10,21 +12,37 @@ const AddRoom = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleRoomInputChange = (e) => {
-    const name = e.target.name;
-    let value = e.target.value;
-    if (name === "roomPrice") {
-      if (!isNaN(value)) {
-        value.parseInt(value);
-      } else {
-        value = "";
-      }
-    }
-    setNewRoom({
-      ...newRoom,
-      [name]: value,
-    });
-  };
+  // const handleRoomInputChange = (e) => {
+  //   const name = e.target.name;
+  //   let value = e.target.value;
+  //   if (name === "roomPrice") {
+  //     if (!isNaN(value)) {
+  //       value.parseInt(value);
+  //     } else {
+  //       value = "";
+  //     }
+  //   }
+  //   setNewRoom({
+  //     ...newRoom,
+  //     [name]: value,
+  //   });
+  // };
+
+  
+	const handleRoomInputChange = (e) => {
+		const name = e.target.name
+		let value = e.target.value
+		if (name === "roomPrice") {
+			if (!isNaN(value)) {
+				value = parseInt(value)
+			} else {
+				value = ""
+			}
+		}
+		setNewRoom({ ...newRoom, [name]: value })
+	}
+
+
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
     setNewRoom({ ...newRoom, photo: selectedImage });
@@ -52,13 +70,13 @@ const AddRoom = () => {
         setErrorMessage("Error adding room");
       }
     } catch (error) {
-      setErrorMessage(error.response.data.message);
-      setNewRoom({
-        photo: null,
-        roomType: "",
-        roomPrice: "",
-      });
-      setImagePreview("");
+      setErrorMessage(error.message);
+      // setNewRoom({
+      //   photo: null,
+      //   roomType: "",
+      //   roomPrice: "",
+      // });
+      // setImagePreview("");
     }
   };
   return (
@@ -74,8 +92,10 @@ const AddRoom = () => {
                   Room type
                 </label>
                 <div>
-
-                  
+                  <RoomTypeSelector
+                    handleRoomInputChange={handleRoomInputChange}
+                    newRoom={newRoom}
+                  />
                 </div>
               </div>
 
@@ -84,14 +104,14 @@ const AddRoom = () => {
                   Room price
                 </label>
                 <input
-                  className="form-control"
                   required
-                  id="roomPrice"
                   type="number"
+                  className="form-control"
+                  id="roomPrice"
                   name="roomPrice"
                   value={newRoom.roomPrice}
                   onChange={handleRoomInputChange}
-                ></input>
+                />
               </div>
 
               <div className="mb-3">
@@ -100,24 +120,24 @@ const AddRoom = () => {
                 </label>
                 <div></div>
                 <input
-                  id="photo"
-                  name="photo"
-                  className="form-control"
-                  onChange={handleImageChange}
-                />
-                {imagePreview && (
-                  <img
-                    src={imagePreview}
-                    className="mb-3"
-                    alt="preview room photo"
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                  
-                  />
-                )}
+									required
+									name="photo"
+									id="photo"
+									type="file"
+									className="form-control"
+									onChange={handleImageChange}
+								/>
+               {imagePreview && (
+									<img
+										src={imagePreview}
+										alt="Preview  room photo"
+										style={{ maxWidth: "400px", maxHeight: "400px" }}
+										className="mb-3"></img>
+								)}
               </div>
               <div className="d-grid d-md-flex mt-2">
                 <button className="btn btn-outline-primary ml-5">
-                        Save Room
+                  Save Room
                 </button>
               </div>
             </form>
