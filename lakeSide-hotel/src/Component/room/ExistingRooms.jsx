@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap"
-import { getAllRooms } from "../Utils/ApiFunctions";
+import { getAllRooms,deleteRoom } from "../Utils/ApiFunctions";
 import RoomFilter from "../common/RoomFilter";
 import RoomPaginator from "../common/RoomPaginator";
 import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
@@ -61,7 +61,7 @@ const ExistingRooms = () => {
   const handleDelete = async(roomId) => {
     try {
       const result = await deleteRoom(roomId);
-      if (result) {
+      if (result === "") {
         setSuccessMessage(`Room No ${roomId} deleted successfully`);
         fetchRooms();
       }else {
