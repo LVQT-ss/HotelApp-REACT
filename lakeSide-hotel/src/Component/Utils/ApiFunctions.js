@@ -1,4 +1,3 @@
-import { Result } from "antd";
 import axios from "axios";
 
 export const api = axios.create({
@@ -47,5 +46,24 @@ export async function deleteRoom(roomId){
         }catch(error){
             throw new Error(`Error deleting room ${error.message}`)
         }
+
+}
+// this function update the room
+export async function updateRoom(roomId, roomData){
+    const formData = new FormData()
+    formData.append("roomType",roomData.roomType)
+    formData.append("roomPrice",roomData.roomType)
+    formData.append("photo",roomData.roomType)
+    const response = await api.put(`/rooms/update/${roomId}`)
+    return response
+}
+// this function gets a room by the id
+export async function getRoomById(roomId){
+    try{
+        const result = await api.get(`/rooms/room/${roomId}`)
+        return result.data
+    }catch(error){
+        throw new Error(`Error fetching room ${error.message}`)
+    }
 
 }
