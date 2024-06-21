@@ -1,11 +1,20 @@
-import React from 'react'
+import React from "react";
+import MainHeader from "../layout/MainHeader";
+import HotelService from "../common/HotelService";
+import Parallax from "../common/Parallax";
 
 const Home = () => {
   return (
-    <div>
-      <h2>Welcome to the home page</h2>
-    </div>
-  )
-}
+    <section>
+      <MainHeader />
 
-export default Home
+      <section className="container">
+        <Parallax />
+        <HotelService />
+        <Parallax />
+      </section>
+    </section>
+  );
+};
+
+export default Home;
