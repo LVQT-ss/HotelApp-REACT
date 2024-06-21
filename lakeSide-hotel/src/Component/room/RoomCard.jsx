@@ -6,7 +6,7 @@ const RoomCard = ({ room }) => {
   return (
     <Col key={room.id} className="mb-4" xs={12}>
       <Card>
-        <Card.body className="d-flex flex-wrap align-items-center">
+        <Card.Body className="d-flex flex-wrap align-items-center">
           <div className="flex-shrink-0 mr-3 mb-3 mb-md-0">
             <Card.Img
               variant="top"
@@ -17,7 +17,7 @@ const RoomCard = ({ room }) => {
           </div>
           <div className="flex-grow-1 ml-3 px-5">
             <Card.Title className="hotel-color">{room.roomType}</Card.Title>
-            <Card.Title className="room-price">{room.roomPrice}</Card.Title>
+            <Card.Title className="room-price">{room.roomPrice} / night</Card.Title>
             <Card.Text className="room-description">
               {room.roomDescription}
               Some room info in the guest to read
@@ -28,7 +28,7 @@ const RoomCard = ({ room }) => {
                     View / Booking Now
                 </Link>
           </div>
-        </Card.body>
+        </Card.Body>
       </Card>
     </Col>
   );
