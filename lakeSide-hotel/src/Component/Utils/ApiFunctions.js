@@ -49,12 +49,13 @@ export async function deleteRoom(roomId){
 
 }
 // this function update the room
+// lỗi này ngồi tới 4h sáng 
 export async function updateRoom(roomId, roomData){
     const formData = new FormData()
     formData.append("roomType",roomData.roomType)
-    formData.append("roomPrice",roomData.roomType)
-    formData.append("photo",roomData.roomType)
-    const response = await api.put(`/rooms/update/${roomId}`)
+    formData.append("roomPrice",roomData.roomPrice)
+    formData.append("photo",roomData.photo)
+    const response = await api.put(`/rooms/update/${roomId}`,formData)
     return response
 }
 // this function gets a room by the id

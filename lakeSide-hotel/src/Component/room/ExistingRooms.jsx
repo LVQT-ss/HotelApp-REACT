@@ -81,6 +81,11 @@ const ExistingRooms = () => {
 
   return (
     <>
+    <div className="container col-md-8 col-lg-6">
+				{successMessage && <p className="alert alert-success mt-5">{successMessage}</p>}
+
+				{errorMessage && <p className="alert alert-danger mt-5">{errorMessage}</p>}
+			</div>
       {isLoading ? (
         <p>Loading exsting rooms</p>
       ) : (

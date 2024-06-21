@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { getRoomById, updateRoom } from "../Utils/ApiFunctions";
 import { Link, useParams } from "react-router-dom"
+
 const EditRoom = () => {
   const [room, setRoom] = useState({
     photo: null,
@@ -12,17 +13,33 @@ const EditRoom = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const {roomId} = useParams()
+
   const handleImageChange = (e) => {
-    const selectedImage = e.target.files[0];
-    setRoom({ ...room, photo: selectedImage });
-    setImagePreview(URL.createObjectURL(selectedImage));
-  };
+	const selectedImage = e.target.files[0]
+	setRoom({ ...room, photo: selectedImage })
+	setImagePreview(URL.createObjectURL(selectedImage))
+}
+
   
   const handleInputChange = (event) => {
-    const name = e.target
+    const {name,value} = event.target
     setRoom({ ...room, [name]: value });
   };
 
+  	useEffect(()=>{
+		const fetchRoom= async () =>{
+			try {
+
+				const roomData = await getRoomById(roomId)
+                setRoom(roomData)
+                setImagePreview(roomData.photo)
+			}catch(error){
+				console.error(error)
+                setErrorMessage(error.message)
+			}
+		}
+		fetchRoom()
+	},[roomId])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -44,7 +61,7 @@ const EditRoom = () => {
 		}
 	}
 
-  return (
+	return (
 		<div className="container mt-5 mb-5">
 			<h3 className="text-center mb-5 mt-5">Edit Room</h3>
 			<div className="row justify-content-center">
@@ -122,5 +139,4 @@ const EditRoom = () => {
 		</div>
 	)
 }
-
 export default EditRoom
