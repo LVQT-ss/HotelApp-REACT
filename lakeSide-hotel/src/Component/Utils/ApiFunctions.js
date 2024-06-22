@@ -68,7 +68,7 @@ export async function getRoomById(roomId){
     }
 
 }
-
+// this functions saves a new booking to the database
 export async function bookRoom(roomId, booking){
     try{
         const response = await api.post(`/bookings/room/${roomId}/booking`,booking)
@@ -82,7 +82,7 @@ export async function bookRoom(roomId, booking){
         }
     }
 }
-
+// this function get all the booking in the database
 export async function getAllBookings(){
     try{
         const result = await api.get("/bookings/all-bookings")
@@ -91,7 +91,7 @@ export async function getAllBookings(){
         throw new Error(`Error fetching all bookings: ${error.message}`)
     }
 }
-
+// this function get the booking by the confirmation code 
 export async function getBookingByConfirmationcCode(bookingId){
     try{
         const result = await api.get(`/bookings/confirmation/${confirmationCode}`)
@@ -104,6 +104,7 @@ export async function getBookingByConfirmationcCode(bookingId){
         }
     }
 }
+// this function cancel booking 
 export async function cancelBooking(bookingId){
     try{
         const result = await api.delete(`/bookings/booking/${bookingId}/delete`)
