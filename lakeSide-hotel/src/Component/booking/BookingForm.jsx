@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getRoomById } from "../Utils/ApiFunctions";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { Form } from "react-bootstrap";
+import { Form, FormControl } from "react-bootstrap";
 import BookingSummary from "./BookingSummary";
 const BookingForm = () => {
     const [isValidated, setIsValidated] = useState(false);
@@ -99,10 +99,11 @@ const BookingForm = () => {
                 <div className="row">
                     <div className="col-md-6">
                         <div className="card card-body mt-5">
-                            <h4 className="card card-title">Reserve Room</h4>
+                            <h4 className="card-title">Reserve Room</h4>
+
                             <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <Form.Label htmlFor="guestName">full name:</Form.Label>
+                                    <Form.Label htmlFor="guestName" className="hotel-color">full name:</Form.Label>
 
                                     <FormControl
                                         required
@@ -120,7 +121,7 @@ const BookingForm = () => {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label htmlFor="guestName">full name:</Form.Label>
+                                    <Form.Label htmlFor="guestName" className="hotel-color">Email:</Form.Label>
 
                                     <FormControl
                                         required
@@ -139,10 +140,10 @@ const BookingForm = () => {
 
 
                                 <fieldset style={{ border: "2px" }}>
-                                    <legend>Ldging period</legend>
+                                    <legend>Lodging period</legend>
                                     <div className="row">
                                         <div className="col-6">
-                                            <Form.Label htmlFor="check_In_Date">Check-In date:</Form.Label>
+                                            <Form.Label htmlFor="check_In_Date" className="hotel-color">Check-In date:</Form.Label>
 
                                             <FormControl
                                                 required
@@ -158,7 +159,7 @@ const BookingForm = () => {
                                             </Form.Control.Feedback>
                                     </div>
                                     <div className="col-6">
-                                            <Form.Label htmlFor="check_Out_Date">Check-In date:</Form.Label>
+                                            <Form.Label htmlFor="check_Out_Date" className="hotel-color">Check-Out date:</Form.Label>
 
                                             <FormControl
                                                 required
@@ -185,7 +186,7 @@ const BookingForm = () => {
                                 <legend>Number Of Guests</legend>
                                 <div className="row">
                                     <div className="col-6">               
-                                            <Form.Label htmlFor="NumberOfAdults">Adults:</Form.Label>
+                                            <Form.Label htmlFor="NumberOfAdults" className="hotel-color">Adults:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
@@ -203,7 +204,7 @@ const BookingForm = () => {
                                     </div>
 
                                     <div className="col-6">               
-                                            <Form.Label htmlFor="NumberOfChildren">Children:</Form.Label>
+                                            <Form.Label htmlFor="NumberOfChildren" className="hotel-color">Children:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
