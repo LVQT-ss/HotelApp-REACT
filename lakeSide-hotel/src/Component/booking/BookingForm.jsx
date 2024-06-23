@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getRoomById } from "../Utils/ApiFunctions";
+import { getRoomById, bookRoom } from "../Utils/ApiFunctions";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { Form, FormControl } from "react-bootstrap";
+import { Form, FormControl, Button } from "react-bootstrap";
 import BookingSummary from "./BookingSummary";
+
 const BookingForm = () => {
     const [isValidated, setIsValidated] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -44,7 +45,7 @@ const BookingForm = () => {
     const calculatedPayment = () => {
         const check_In_Date = moment(booking.check_In_Date);
         const check_Out_Date = moment(booking.check_Out_Date);
-        const diffInDays = check_Out_Date.diff(check_In_Date);
+        const diffInDays = check_Out_Date.diff(check_In_Date, 'days'); // Added 'days' unit
         const price = roomPrice ? roomPrice : 0;
         return diffInDays * price;
     };
@@ -60,7 +61,7 @@ const BookingForm = () => {
                 moment(booking.check_In_Date)
             )
         ) {
-            setErrorMessage("Check out date must come before check in date");
+            setErrorMessage("Check out date must come after check in date"); // Fixed error message
             return false;
         } else {
             setErrorMessage("");
@@ -74,9 +75,9 @@ const BookingForm = () => {
         if (
             form.checkValidity() === false ||
             !isGuestCountValid() ||
-            !isCheckOutDateValid
+            !isCheckOutDateValid()
         ) {
-            e.stopPropagration();
+            e.stopPropagation();
         } else {
             setIsSubmitted(true);
         }
@@ -103,146 +104,132 @@ const BookingForm = () => {
 
                             <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <Form.Label htmlFor="guestName" className="hotel-color">full name:</Form.Label>
-
+                                    <Form.Label htmlFor="guestName" className="hotel-color">Full Name:</Form.Label>
                                     <FormControl
                                         required
                                         type="text"
                                         id="guestName"
-                                        name="guestValue"
+                                        name="guestName" // Fixed name attribute
                                         value={booking.guestName}
-                                        placeholder="enter your full name"
+                                        placeholder="Enter your full name"
                                         onChange={handleInputChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        please enter your full name
+                                        Please enter your full name
                                     </Form.Control.Feedback>
-
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label htmlFor="guestName" className="hotel-color">Email:</Form.Label>
-
+                                    <Form.Label htmlFor="guestEmail" className="hotel-color">Email:</Form.Label>
                                     <FormControl
                                         required
                                         type="email"
                                         id="guestEmail"
-                                        name="guestEmail"
+                                        name="guestEmail" // Fixed name attribute
                                         value={booking.guestEmail}
-                                        placeholder="enter your email"
+                                        placeholder="Enter your email"
                                         onChange={handleInputChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        please enter your email address
+                                        Please enter your email address
                                     </Form.Control.Feedback>
-
                                 </Form.Group>
 
-
                                 <fieldset style={{ border: "2px" }}>
-                                    <legend>Lodging period</legend>
+                                    <legend>Lodging Period</legend>
                                     <div className="row">
                                         <div className="col-6">
-                                            <Form.Label htmlFor="check_In_Date" className="hotel-color">Check-In date:</Form.Label>
-
+                                            <Form.Label htmlFor="check_In_Date" className="hotel-color">Check-In Date:</Form.Label>
                                             <FormControl
                                                 required
-                                                type="text"
+                                                type="date"
                                                 id="check_In_Date"
                                                 name="check_In_Date"
                                                 value={booking.check_In_Date}
-                                                placeholder="check-in date"
+                                                placeholder="Check-in date"
                                                 onChange={handleInputChange}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                               Please select a check-in-date 
+                                               Please select a check-in date 
                                             </Form.Control.Feedback>
-                                    </div>
-                                    <div className="col-6">
-                                            <Form.Label htmlFor="check_Out_Date" className="hotel-color">Check-Out date:</Form.Label>
-
+                                        </div>
+                                        <div className="col-6">
+                                            <Form.Label htmlFor="check_Out_Date" className="hotel-color">Check-Out Date:</Form.Label>
                                             <FormControl
                                                 required
-                                                type="text"
+                                                type="date"
                                                 id="check_Out_Date"
                                                 name="check_Out_Date"
                                                 value={booking.check_Out_Date}
-                                                placeholder="check-in date"
+                                                placeholder="Check-out date"
                                                 onChange={handleInputChange}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                               Please select a check-out Date 
+                                               Please select a check-out date 
                                             </Form.Control.Feedback>
-
-                                        
-
+                                        </div>
+                                        {errorMessage && <p className="error-message text-danger">{errorMessage}</p>}
                                     </div>
+                                </fieldset>
 
-                                    {errorMessage && <p className="error-message  text-danger">{errorMessage}</p>}
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <legend>Number Of Guests</legend>
-                                <div className="row">
-                                    <div className="col-6">               
+                                <fieldset>
+                                    <legend>Number Of Guests</legend>
+                                    <div className="row">
+                                        <div className="col-6">               
                                             <Form.Label htmlFor="NumberOfAdults" className="hotel-color">Adults:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
-                                                id="check_In_Date"
-                                                name="check_In_Date"
+                                                id="NumberOfAdults"
+                                                name="NumberOfAdults" // Fixed name attribute
                                                 value={booking.NumberOfAdults}
-
                                                 min={1}
                                                 placeholder="0"
                                                 onChange={handleInputChange}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                               Please select atleast 1 adult 
+                                               Please select at least 1 adult 
                                             </Form.Control.Feedback>
-                                    </div>
-
-                                    <div className="col-6">               
+                                        </div>
+                                        <div className="col-6">               
                                             <Form.Label htmlFor="NumberOfChildren" className="hotel-color">Children:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
                                                 id="NumberOfChildren"
-                                                name="NumberOfChildren"
+                                                name="NumberOfChildren" // Fixed name attribute
                                                 value={booking.NumberOfChildren}
-                                              
-                                                min={1}
+                                                min={0} // Changed min value to 0 for children
                                                 placeholder="0"
                                                 onChange={handleInputChange}
                                             />
                                             <Form.Control.Feedback type="invalid">
-                                               please select children
+                                               Please select number of children
                                             </Form.Control.Feedback>
+                                        </div>
                                     </div>
-                                    </div>
-                            </fieldset>
-                            <div className="form-group mt-2 mb-2">
-                                    <button type="submit" className="btn btn-hotel">Continue</button>
-                            </div>
-                        </Form>
+                                </fieldset>
+                                <div className="form-group mt-2 mb-2">
+                                    <Button type="submit" className="btn btn-hotel">Continue</Button>
+                                </div>
+                            </Form>
+                        </div>
+                    </div>
+
+                    <div className="col-md-6">
+                        {isSubmitted && (
+                            <BookingSummary
+                                booking={booking}
+                                payment={calculatedPayment()}
+                                isFormValid={isValidated}
+                                onConfirm={handleBooking}
+                            />
+                        )}
                     </div>
                 </div>
-
-                <div className="col-md-6">
-                    {isSubmitted && (
-                        <BookingSummary
-                        booking={booking}
-                        payment={calculatedPayment}
-                        isFormValid={isValidated}
-                        onConfirm={handleBooking}
-                        />
-                    )}
-                </div>
             </div>
-        </div >
-    </>
-  );
+        </>
+    );
 };
 
 export default BookingForm;
