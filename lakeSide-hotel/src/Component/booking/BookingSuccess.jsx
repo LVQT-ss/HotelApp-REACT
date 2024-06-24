@@ -14,14 +14,14 @@ const BookingSuccess = () => {
                         <div>
 
                             <h3 className='text-success'>Booking Success ! </h3>
-                            <p>{message}</p>
+                            <p className='text-success'>{message}</p>
 
                         </div>
                     ):(
                         <div>
 
                         <h3 className='text-success'>Error Booking Room ! </h3>
-                        <p>{error}</p>
+                        <p className='text-danger'>{error}</p>
 
                     </div>
                     )}
