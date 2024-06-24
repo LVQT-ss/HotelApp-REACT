@@ -60,7 +60,7 @@ const BookingForm = () => {
         return totalCount >= 1 && adultCount >= 1;
     };
 
-    
+
     const isCheckOutDateValid = () => {
         if (
             !moment(booking.check_Out_Date).isSameOrAfter(
@@ -88,10 +88,17 @@ const BookingForm = () => {
             setIsSubmitted(true);
         }
         setIsValidated(true);
+        console.log("json file ")
     };
     
     const handleBooking = async () => {
         try {
+            // Log the booking data
+            console.log("Booking data being sent to backend:", {
+                roomId: roomId,
+                bookingDetails: booking
+            });
+    
             const confirmationCode = await bookRoom(roomId, booking);
             setIsSubmitted(true);
             navigate("/booking-success", { state: { message: confirmationCode } });
