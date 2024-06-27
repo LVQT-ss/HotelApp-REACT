@@ -15,8 +15,8 @@ const BookingForm = () => {
         guestEmail: "",
         check_In_Date: "",
         check_Out_Date: "",
-        NumOfAdults: "",
-        NumOfChildren: "",
+        numOfAdults: "",
+        numOfChildren: "",
     });
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -54,8 +54,8 @@ const BookingForm = () => {
     };
 
     const isGuestCountValid = () => {
-        const adultCount = parseInt(booking.NumOfAdults);
-        const childrenCount = parseInt(booking.NumOfChildren);
+        const adultCount = parseInt(booking.numOfAdults);
+        const childrenCount = parseInt(booking.numOfChildren);
         const totalCount = adultCount + childrenCount;
         return totalCount >= 1 && adultCount >= 1;
     };
@@ -187,16 +187,16 @@ const BookingForm = () => {
                                 </fieldset>
 
                                 <fieldset>
-                                    <legend>Number Of Guests</legend>
+                                    <legend>number Of Guests</legend>
                                     <div className="row">
                                         <div className="col-6">               
-                                            <Form.Label htmlFor="NumOfAdults" className="hotel-color">Adults:</Form.Label>
+                                            <Form.Label htmlFor="numOfAdults" className="hotel-color">Adults:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
-                                                id="NumOfAdults"
-                                                name="NumOfAdults" // Fixed name attribute
-                                                value={booking.NumOfAdults}
+                                                id="numOfAdults"
+                                                name="numOfAdults" // Fixed name attribute
+                                                value={booking.numOfAdults}
                                                 min={1}
                                                 placeholder="0"
                                                 onChange={handleInputChange}
@@ -206,13 +206,13 @@ const BookingForm = () => {
                                             </Form.Control.Feedback>
                                         </div>
                                         <div className="col-6">               
-                                            <Form.Label htmlFor="NumOfChildren" className="hotel-color">Children:</Form.Label>
+                                            <Form.Label htmlFor="numOfChildren" className="hotel-color">Children:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="number"
-                                                id="NumOfChildren"
-                                                name="NumOfChildren" // Fixed name attribute
-                                                value={booking.NumOfChildren}
+                                                id="numOfChildren"
+                                                name="numOfChildren" // Fixed name attribute
+                                                value={booking.numOfChildren}
                                                 min={0} // Changed min value to 0 for children
                                                 placeholder="0"
                                                 onChange={handleInputChange}
