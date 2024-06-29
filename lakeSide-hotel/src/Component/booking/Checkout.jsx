@@ -39,19 +39,10 @@ const Checkout = () => {
                     alt='Room photo'
                     style={{width:'100%', height:'200px'}}
                     />
-                    <table>
+                    <table className='table table-bordered'>
                       <tbody>
 
                       <tr>
-                          <th>Room Type:</th>
-                          <th>roomInfo.roomType</th>
-                        </tr>
-                        <tr>
-                          <th>Price per Night:</th>
-                          <th>roomInfo.roomPrice USD</th>
-                        </tr>
-
-                        <tr>
                           <th>Room Type:</th>
                           <th>{roomInfo.roomType}</th>
                         </tr>
@@ -60,7 +51,10 @@ const Checkout = () => {
                           <th>{roomInfo.roomPrice} USD</th>
                         </tr>
 
+                        
+
                         <tr>
+                          <th>Room Services</th>
                           <td>
                             <ul className='list-unstyled'>
                                 <li>
