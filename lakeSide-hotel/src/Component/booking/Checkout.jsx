@@ -3,7 +3,7 @@ import BookingForm from './BookingForm'
 import { useParams } from 'react-router-dom'
 import { getRoomById } from '../Utils/ApiFunctions'
 import { FaCar, FaTv, FaUtensils, FaWifi, FaWineGlassAlt, FaTshirt, FaParking } from 'react-icons/fa'
-
+import RoomCarousel from "../common/RoomCarousel";
 const Checkout = () => {
   const[error,setError] = useState("")
   const[isLoading,setIsLoading]= useState(true)
@@ -96,6 +96,10 @@ const Checkout = () => {
 
         </div>
       </section>
+
+      <div>
+        <RoomCarousel/>
+      </div>
     </div>
   )
 }
