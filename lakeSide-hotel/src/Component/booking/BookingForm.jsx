@@ -13,8 +13,8 @@ const BookingForm = () => {
     const [booking, setBooking] = useState({
         guestFullname: "",
         guestEmail: "",
-        check_In_Date: "",
-        check_Out_Date: "",
+        checkInDate: "",
+        checkOutDate: "",
         numOfAdults: "",
         numOfChildren: "",
     });
@@ -45,9 +45,9 @@ const BookingForm = () => {
     }, [roomId]);
 
     const calculatedPayment = () => {
-        const check_In_Date = moment(booking.check_In_Date);
-        const check_Out_Date = moment(booking.check_Out_Date);
-        const diffInDays = check_Out_Date.diff(check_In_Date, 'days'); // Added 'days' unit
+        const checkInDate = moment(booking.checkInDate);
+        const checkOutDate = moment(booking.checkOutDate);
+        const diffInDays = checkOutDate.diff(checkInDate, 'days'); // Added 'days' unit
         const price = roomPrice ? roomPrice : 0;
         return diffInDays * price;
 
@@ -63,8 +63,8 @@ const BookingForm = () => {
 
     const isCheckOutDateValid = () => {
         if (
-            !moment(booking.check_Out_Date).isSameOrAfter(
-                moment(booking.check_In_Date)
+            !moment(booking.checkOutDate).isSameOrAfter(
+                moment(booking.checkInDate)
             )
         ) {
             setErrorMessage("Check out date must come after check in date"); // Fixed error message
@@ -153,13 +153,13 @@ const BookingForm = () => {
                                     <legend>Lodging Period</legend>
                                     <div className="row">
                                         <div className="col-6">
-                                            <Form.Label htmlFor="check_In_Date" className="hotel-color">Check-In Date:</Form.Label>
+                                            <Form.Label htmlFor="checkInDate" className="hotel-color">Check-In Date:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="date"
-                                                id="check_In_Date"
-                                                name="check_In_Date"
-                                                value={booking.check_In_Date}
+                                                id="checkInDate"
+                                                name="checkInDate"
+                                                value={booking.checkInDate}
                                                 placeholder="Check-in date"
                                                 onChange={handleInputChange}
                                             />
@@ -168,13 +168,13 @@ const BookingForm = () => {
                                             </Form.Control.Feedback>
                                         </div>
                                         <div className="col-6">
-                                            <Form.Label htmlFor="check_Out_Date" className="hotel-color">Check-Out Date:</Form.Label>
+                                            <Form.Label htmlFor="checkOutDate" className="hotel-color">Check-Out Date:</Form.Label>
                                             <FormControl
                                                 required
                                                 type="date"
-                                                id="check_Out_Date"
-                                                name="check_Out_Date"
-                                                value={booking.check_Out_Date}
+                                                id="checkOutDate"
+                                                name="checkOutDate"
+                                                value={booking.checkOutDate}
                                                 placeholder="Check-out date"
                                                 onChange={handleInputChange}
                                             />
