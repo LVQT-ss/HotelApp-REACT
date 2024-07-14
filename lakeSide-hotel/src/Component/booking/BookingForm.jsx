@@ -11,7 +11,7 @@ const BookingForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [roomPrice, setRoomPrice] = useState(0);
     const [booking, setBooking] = useState({
-        guestFullname: "",
+        guestFullName: "",
         guestEmail: "",
         checkInDate: "",
         checkOutDate: "",
@@ -118,13 +118,13 @@ const BookingForm = () => {
 
                             <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <Form.Label htmlFor="guestFullname" className="hotel-color">Full Name:</Form.Label>
+                                    <Form.Label htmlFor="guestFullName" className="hotel-color">Full Name:</Form.Label>
                                     <FormControl
                                         required
                                         type="text"
-                                        id="guestFullname"
-                                        name="guestFullname" // Fixed name attribute
-                                        value={booking.guestFullname}
+                                        id="guestFullName"
+                                        name="guestFullName" // Fixed name attribute
+                                        value={booking.guestFullName}
                                         placeholder="Enter your full name"
                                         onChange={handleInputChange}
                                     />
