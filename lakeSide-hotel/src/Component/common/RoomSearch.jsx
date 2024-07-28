@@ -27,6 +27,9 @@ const RoomSearch = () => {
       setErrorMessage("Check-in date should be before check-out date");
       return;
     }
+    
+    console.log("Sending data to backend:", searchQuery);
+    
     setIsLoading(true);
     getAvailableRooms(
       searchQuery.checkInDate,
@@ -54,6 +57,7 @@ const RoomSearch = () => {
       setErrorMessage("");
     }
   };
+
   const handleClearSearch = () => {
     setSearchQuery({
       checkInDate: "",
@@ -111,13 +115,13 @@ const RoomSearch = () => {
           </Row>
         </Form>
         {isLoading ? (
-					<p className="mt-4">Finding availble rooms....</p>
-				) : availableRooms ? (
-					<RoomSearchResult results={availableRooms} onClearSearch={handleClearSearch} />
-				) : (
-					<p className="mt-4">No rooms available for the selected dates and room type.</p>
-				)}
-				{errorMessage && <p className="text-danger">{errorMessage}</p>}
+          <p className="mt-4">Finding available rooms....</p>
+        ) : availableRooms ? (
+          <RoomSearchResult results={availableRooms} onClearSearch={handleClearSearch} />
+        ) : (
+          <p className="mt-4">No rooms available for the selected dates and room type.</p>
+        )}
+        {errorMessage && <p className="text-danger">{errorMessage}</p>}
       </Container>
     </>
   );

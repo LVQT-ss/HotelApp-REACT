@@ -130,10 +130,10 @@ export async function getBookingByConfirmationCode(confirmationCode) {
 	}
 }
 //this function gets all available from the database with a given date and a room type
-export async function getAvailableRooms(checkInDate, checkOutDate,roomType){
-    const result = await api.get(
-        `rooms/available-rooms?checkInDate=${checkInDate}
-        &checkOutDate=${checkOutDate}&roomType=${roomType}`
-    )
-    return result 
+export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
+	const result = await api.get(
+		`rooms/available-rooms?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&roomType=${roomType}`
+	)
+	return result
 }
