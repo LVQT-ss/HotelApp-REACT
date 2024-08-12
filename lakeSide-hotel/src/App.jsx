@@ -14,6 +14,10 @@ import Checkout from "./Component/booking/Checkout.jsx";
 import BookingSuccess from "./Component/booking/BookingSuccess.jsx";
 import Booking from "./Component/booking/Booking.jsx";
 import FindBooking from "./Component/booking/FindBooking.jsx";
+import Profile from "./Component/auth/Profile.jsx";
+import Registration from "./Component/auth/Registration.jsx";
+import Login from "./Component/auth/Login.jsx";
+import Logout from "./Component/auth/Logout.jsx";
 function App() {
 
 
@@ -33,6 +37,11 @@ function App() {
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/existing-bookings" element={<Booking />} />
           <Route path="/find-booking" element={<FindBooking />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer/>
       </Router>
