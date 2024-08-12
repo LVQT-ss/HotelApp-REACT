@@ -43,14 +43,13 @@ const NavBar = () => {
                 Browse all rooms
               </NavLink>
             </li>
-            {isLoggedIn  && userRole == "ROLE_ADMIN" && (
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to={"/admin"}>
-                Manage Rooms (ADMIN)
-              </NavLink>
-            </li>
-              
-            )}
+            {isLoggedIn && userRole === "ROLE_ADMIN" && (
+							<li className="nav-item">
+								<NavLink className="nav-link" aria-current="page" to={"/admin"}>
+									Admin
+								</NavLink>
+							</li>
+						)}
           </ul>
 
           <ul className="d-flex navbar-nav">
@@ -70,26 +69,19 @@ const NavBar = () => {
               >
                 Account
               </a>
-              <ul className={`dropdown-menu ${showAccount ? "show" : ""}`}
-               aria-labelledby="navbarDropdown">
-                {!isLoggedIn ? (
-                <li>
-                  <Link to={"/login"} className="dropdown-item">
-                    Login
-                  </Link>
-                </li>
-
-                ):(
-
-                <li>
-                  <Link to={"/logout"} className="dropdown-item">
-                    Logout
-                  </Link>
-                </li>
-                )}
-               
-
-              </ul>
+              <ul
+								className={`dropdown-menu ${showAccount ? "show" : ""}`}
+								aria-labelledby="navbarDropdown">
+								{isLoggedIn ? (
+									<Logout />
+								) : (
+									<li>
+										<Link className="dropdown-item" to={"/login"}>
+											Login
+										</Link>
+									</li>
+								)}
+							</ul>
             </li>
           </ul>
         </div>

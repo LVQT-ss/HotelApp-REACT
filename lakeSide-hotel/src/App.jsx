@@ -18,11 +18,12 @@ import Profile from "./Component/auth/Profile.jsx";
 import Registration from "./Component/auth/Registration.jsx";
 import Login from "./Component/auth/Login.jsx";
 import Logout from "./Component/auth/Logout.jsx";
+import { AuthProvider } from "./Component/auth/AuthProvider.jsx";
 function App() {
 
 
   return (
-    <>
+    <AuthProvider>
     <main>
       <Router>
         <NavBar/>
@@ -47,7 +48,7 @@ function App() {
       </Router>
     </main>
 
-    </>
+    </AuthProvider>
   )
 }
 
