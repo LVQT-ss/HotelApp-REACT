@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { addRoom } from "../Utils/ApiFunctions";
 import RoomTypeSelector from "../common/RoomTypeSelector";
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+
 const AddRoom = () => {
   const [newRoom, setNewRoom] = useState({
     photo: null,
     roomType: "",
     roomPrice: "",
   });
-  const [imagePreview, setImagePreview] = useState("");
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const handleRoomInputChange = (e) => {
     const name = e.target.name;
@@ -40,29 +42,25 @@ const AddRoom = () => {
         newRoom.roomPrice
       );
       if (success !== undefined) {
-        setSuccessMessage("A new room has been added");
-        setNewRoom({
-          photo: null,
-          roomType: "",
-          roomPrice: "",
-        });
+        setSuccessMessage("A new room was  added successfully !");
+        setNewRoom({ photo: null, roomType: "", roomPrice: "" });
         setImagePreview("");
         setErrorMessage("");
       } else {
-        setErrorMessage("Error adding room");
+        setErrorMessage("Error adding new room");
       }
     } catch (error) {
       setErrorMessage(error.message);
-      
     }
-    setTimeout(()=>{
-      setSuccessMessage("")
-      setErrorMessage("")
-    },3000)
+    setTimeout(() => {
+      setSuccessMessage("");
+      setErrorMessage("");
+    }, 3000);
   };
+
   return (
     <>
-      <section className="container, mt-5 mb-5">
+      <section className="container mt-5 mb-5">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6">
             <h2 className="mt-5 mb-2">Add a New Room</h2>
@@ -72,6 +70,7 @@ const AddRoom = () => {
                 {successMessage}
               </div>
             )}
+
             {errorMessage && (
               <div className="alert alert-danger fade show">
                 {" "}
@@ -82,7 +81,7 @@ const AddRoom = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="roomType" className="form-label">
-                  Room type
+                  Room Type
                 </label>
                 <div>
                   <RoomTypeSelector
@@ -91,10 +90,9 @@ const AddRoom = () => {
                   />
                 </div>
               </div>
-
               <div className="mb-3">
                 <label htmlFor="roomPrice" className="form-label">
-                  Room price
+                  Room Price
                 </label>
                 <input
                   required
@@ -109,9 +107,8 @@ const AddRoom = () => {
 
               <div className="mb-3">
                 <label htmlFor="photo" className="form-label">
-                  Room photo
+                  Room Photo
                 </label>
-                <div></div>
                 <input
                   required
                   name="photo"
@@ -129,11 +126,11 @@ const AddRoom = () => {
                   ></img>
                 )}
               </div>
-              <div className="d-grid d-md-flex mt-2">
+              <div className="d-grid gap-2 d-md-flex mt-2">
                 <Link to={"/existing-rooms"} className="btn btn-outline-info">
-                Back
+                  Existing rooms
                 </Link>
-                <button className="btn btn-outline-primary ml-5">
+                <button type="submit" className="btn btn-outline-primary ml-5">
                   Save Room
                 </button>
               </div>
