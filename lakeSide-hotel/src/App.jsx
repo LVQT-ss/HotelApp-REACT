@@ -19,6 +19,7 @@ import Registration from "./Component/auth/Registration.jsx";
 import Login from "./Component/auth/Login.jsx";
 import Logout from "./Component/auth/Logout.jsx";
 import { AuthProvider } from "./Component/auth/AuthProvider.jsx";
+import RequireAuth from "./Component/auth/RequireAth.jsx";
 function App() {
 
 
@@ -32,8 +33,19 @@ function App() {
           <Route path="/edit-room/:roomId" element={<EditRoom />} />
           <Route path="/existing-rooms" element={<ExistingRooms />} />
           <Route path="/add-room" element={<AddRoom />} />
-          <Route path="/book-room/:roomId" element={<Checkout />} />
+
+
+          <Route
+           path="/book-room/:roomId" 
+           element={
+            <RequireAuth>
+              <Checkout />
+            </RequireAuth>
+           } />
+
+
           <Route path="/browse-all-rooms" element={<RoomListing />} />
+          
           <Route path="/admin" element={<Admin />} />
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/existing-bookings" element={<Booking />} />
@@ -41,6 +53,7 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
